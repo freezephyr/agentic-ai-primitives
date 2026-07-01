@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "test",
+			"type": "shell",
+			"command": "C:/Program Files/Python314/python.exe",
+			"args": [
+				"-m",
+				"pytest"
+			],
+			"isBackground": false,
+			"problemMatcher": [
+				"$pytest"
+			],
+			"group": "test"
+		}
+	]
+}
