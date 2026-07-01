@@ -28,9 +28,7 @@ def fnc_run_inference(model: str, userPrompt: str, tools: list):
     return  completion(
         model=model,
         messages=[{"role": "user", "content": userPrompt}],
-#        tools=tools,
-#        tool_choice="auto",
-       
+
         stream=False,
     )
 def fnc_run_routing(userPrompt: str, tools: list)->dict:
@@ -112,85 +110,3 @@ print("\nRouting Response:\n", routing_response)
 print(f"-"*20)
 print( routing_response.choices[0].message.content)
 routing_message = routing_response.choices[0].message.content
-
-'''
-messages=[{"role": "user", "content": "whats the weather in new delhi and new york?"}]
-response = completion(
-    model="bedrock/qwen.qwen3-coder-next",
-    messages=messages,
-    tools=tools,
-    tool_choice="auto",
-    stream=False,
-)
-
-
-
-print("\nLLM Response1:\n", response)
-
-response_message=response["choices"][0]["message"]
-tool_calls=response_message.get("tool_calls", [])
-for tool_call in tool_calls:
-    tool_name=tool_call.function.name
-    print (f"\nTool Call: {tool_name}")
-    messages.append(
-{"role": "tool", "name": tool_name, "content": json.dumps(tool_call.function.arguments)}
-    )
-
-
-response2 = completion(
-    model="bedrock/qwen.qwen3-coder-next",
-    messages=messages)
-print("\nLLM Response2:\n", response2)
-
-response_message = response.choices[0].message
-tool_calls = response_message.tool_calls
-
-print("\nLength of tool calls", len(tool_calls))
-
-if tool_calls:
-    # Step 3: call the function and append the tool result to the conversation.
-    available_functions = {
-        "check_weather": check_weather,
-    }
-    messages.append(response_message)
-
-    for tool_call in tool_calls:
-        function_name = tool_call.function.name
-        function_args = json.loads(tool_call.function.arguments)
-        function_to_call = available_functions.get(function_name)
-        if function_to_call is None:
-            raise ValueError(f"Unknown function: {function_name}")
-
-        function_output = function_to_call(**function_args)
-        messages.append(
-            {
-                "role": "tool",
-                "name": function_name,
-                "tool_call_id": tool_call.id,
-                "content": function_output,
-            }
-        )
-
-    second_response = completion(
-        model="bedrock/qwen.qwen3-coder-next",
-        messages=messages,
-        tools=tools,
-    )
-    print("\nSecond LLM response:\n", second_response)
-    print("Second response message:\n", second_response.choices[0].message.content)
-
-messages=[{"role": "user", "content": "whats the weather in new delhi and new york? and what is the time in those cities?"}]
-
-messages.append(
-    {"role": "user", "content": "whats 2+2?"
-    }
-)
-
-third_response = completion(
-model="bedrock/qwen.qwen3-coder-next",
-messages=messages,
-tools=tools,
-)
-print("\nThird LLM response:\n", third_response)
-print("Third response message:\n", third_response.choices[0].message.content)
-'''

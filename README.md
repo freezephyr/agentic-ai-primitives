@@ -1,25 +1,24 @@
 # Agentic Learning Workspace
 
-A compact Python workspace for learning AI agentic coding, governance, and evals.
+A collection of hands-on lessons exploring AI agentic primitives — from
+tool-calling seams to RAG evaluation. Each lesson is a self-contained folder
+with its own README explaining the concept it teaches.
 
-## What is in here
+## Lessons
 
-- `src/agentic_learning/agent_loop.py` for a simple agent loop model
-- `src/agentic_learning/governance.py` for policy checks and guardrails
-- `src/agentic_learning/evals.py` for small evaluation harnesses
-- `examples/quickstart.py` for a runnable end-to-end example
-- `tests/` for learning-focused checks
+| # | Folder | The Lesson |
+|---|--------|------------|
+| 01 | [tool-calling-seam](lessons/01-tool-calling-seam/) | When an LLM decides to answer vs call a tool |
+| 02 | [intent-routing](lessons/02-intent-routing/) | Routing requests to the right model by complexity |
+| 03 | [rag-pipeline](lessons/03-rag-pipeline/) | Full RAG flow: PDF → chunks → retrieve → answer |
+| 04 | [rag-evaluation](lessons/04-rag-evaluation/) | LLM-as-judge scoring for RAG quality |
+| 05 | [agent-loop-primitives](lessons/05-agent-loop-primitives/) | Minimal reusable loop, governance, and eval building blocks |
 
 ## Getting started
 
-1. Create and activate a Python 3.11+ environment.
-2. Install the package in editable mode with dev dependencies.
-3. Run the example or the test suite.
-
-## Suggested commands
-
 ```powershell
-python -m pip install -e .[dev]
+pip install -e .
 pytest
-python examples/quickstart.py
 ```
+
+Each lesson's folder contains its own run instructions.

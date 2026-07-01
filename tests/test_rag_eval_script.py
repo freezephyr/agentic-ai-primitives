@@ -5,7 +5,7 @@ from pathlib import Path
 
 MODULE_PATH = (
     Path(__file__).resolve().parents[1]
-    / "src/agentic_learning/agentic_loop_with_RAG/RAG_earning_rpt_QnA_Eval.py"
+    / "lessons/04-rag-evaluation/example.py"
 )
 
 

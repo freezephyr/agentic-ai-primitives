@@ -159,4 +159,3 @@ def answer_question(collection, question: str, n_results: int = 3) -> str:
         [{"role": "user", "content": prompt}], intent=intent
     )
     return content or ""
-

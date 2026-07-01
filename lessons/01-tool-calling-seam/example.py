@@ -83,29 +83,12 @@ response = completion(
 
 
 print("\nLLM Response1:\n", response)
-'''
-response_message=response["choices"][0]["message"]
-tool_calls=response_message.get("tool_calls", [])
-for tool_call in tool_calls:
-    tool_name=tool_call.function.name
-    print (f"\nTool Call: {tool_name}")
-    messages.append(
-{"role": "tool", "name": tool_name, "content": json.dumps(tool_call.function.arguments)}
-    )
-
-
-response2 = completion(
-    model="bedrock/qwen.qwen3-coder-next",
-    messages=messages)
-print("\nLLM Response2:\n", response2)
-'''
 response_message = response.choices[0].message
 tool_calls = response_message.tool_calls
 
 print("\nLength of tool calls", len(tool_calls))
 
 if tool_calls:
-    # Step 3: call the function and append the tool result to the conversation.
     available_functions = {
         "check_weather": check_weather,
     }

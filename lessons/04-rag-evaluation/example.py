@@ -4,11 +4,15 @@
 from pathlib import Path
 import sys
 import json
-MODULE_DIR = Path(__file__).resolve().parent
-if str(MODULE_DIR) not in sys.path:
-    sys.path.insert(0, str(MODULE_DIR))
 
-from RAG_functions import (
+from pathlib import Path
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+FUNCTIONS_DIR = SCRIPT_DIR.parent / "03-rag-pipeline"
+if str(FUNCTIONS_DIR) not in sys.path:
+    sys.path.insert(0, str(FUNCTIONS_DIR))
+
+from functions import (
     answer_question,
     build_collection,
     chunk_text,
@@ -92,12 +96,6 @@ chunk_size=512
 overlap=64
 n_results=3
 
-'''
-logging.basicConfig(
-    level=logging.INFO if args.verbose else logging.WARNING,
-    format="%(levelname)s %(message)s",
-)
-'''
 doc = load_pdf(pdf)
 logger.info("Loaded %d pages from %s", len(doc.pages), doc.name)
 
@@ -114,12 +112,9 @@ answer=judge_test_results(RAG_TESTS, test_results)
 print(answer)
 
 
-scores = [json.loads(r[0])['score'] for r in x]
+scores = [json.loads(r[0])['score'] for r in answer]
 avg = sum(scores) / len(scores)
 failed = [s for s in scores if s < 3]
 
 print(f"Average score: {avg:.1f}/5")
 print(f"Failed tests: {len(failed)}")
-
-
-
